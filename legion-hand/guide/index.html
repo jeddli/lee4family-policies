@@ -1,0 +1,335 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Legion Hand 플레이 안내</title>
+<meta name="description" content="Legion Hand — 포커 족보로 크리처 군단을 이끄는 카드 로그라이크. 처음 하는 분을 위한 플레이 방법.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Gothic+A1:wght@400;700;900&family=Lilita+One&display=swap">
+<style>
+/* 레이아웃: 게임 안 "작전 테이블" — 나무 바탕 위에 장마다 [폰 화면 | 설명] 을 나란히(좁으면 위아래), 계산 · 족보표 · 방해표는 양피지 판으로 */
+:root {
+  --wood: #1b140e; --panel: #241a12; --edge: #6b5428; --ink: #efe6d2; --muted: #b9a37c;
+  --parch: #efe2c0; --parch-ink: #2a1e12; --parch-muted: #6a5636; --gold: #ecbf55; --gold-deep: #a7802f;
+  --red: #d9473a; --troops: #2ccceb; --troops-ink: #0b2a33; --mult: #c2367f; --dmg: #f2c632;
+  --sky: #8f9cf0; --sea: #3fb7cf; --earth: #6cc47a; --hell: #f08c3a;
+  --display: "Do Hyeon", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --body: "Gothic A1", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --num: "Lilita One", "Do Hyeon", "Arial Black", sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { background: var(--wood); }
+body { background: radial-gradient(120% 60% at 50% 0%, #2c2016 0%, var(--wood) 60%) var(--wood); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.75; }
+.wrap { max-width: 980px; margin: 0 auto; padding-block: 32px 80px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 72px; }
+h1, h2, h3 { font-family: var(--display); font-weight: 400; line-height: 1.2; margin: 0; text-wrap: balance; }
+h2 { font-size: clamp(28px, 5vw, 36px); color: var(--gold); }
+h3 { font-size: 21px; color: var(--ink); }
+p { margin: 0; max-width: 62ch; }
+b, strong { color: var(--gold); font-weight: 700; }
+a { color: var(--gold); }
+a:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+.muted { color: var(--muted); }
+.n { font-family: var(--num); font-variant-numeric: tabular-nums; letter-spacing: .5px; }
+.eyebrow { font-size: 13px; letter-spacing: .12em; color: var(--gold-deep); font-weight: 900; }
+
+/* 첫 화면 */
+.hero { display: grid; grid-template-columns: minmax(0, 1fr) 260px; gap: 40px; align-items: center; }
+.hero h1 { font-size: clamp(44px, 9vw, 76px); color: var(--gold); letter-spacing: 1px; }
+.hero .pitch { font-size: clamp(19px, 3vw, 23px); font-family: var(--display); line-height: 1.45; }
+.hero .copy { display: grid; gap: 18px; }
+.hero ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; }
+.hero li { padding-left: 22px; position: relative; }
+.hero li::before { content: ""; position: absolute; left: 4px; top: .7em; width: 9px; height: 9px; border-radius: 2px; background: var(--gold); transform: rotate(45deg); }
+.toc { display: flex; flex-wrap: wrap; gap: 8px; }
+.toc a { text-decoration: none; color: var(--ink); background: var(--panel); border: 1.5px solid var(--edge); border-radius: 999px; padding: 3px 13px; font-size: 14px; font-weight: 700; }
+.toc a:hover { border-color: var(--gold); color: var(--gold); }
+.phone { width: 100%; max-width: 260px; border-radius: 22px; border: 3px solid #0e0a06; box-shadow: 0 0 0 2px var(--edge), 0 18px 40px #0008; display: block; background: var(--wood); }
+figure { margin: 0; display: grid; gap: 8px; justify-items: center; align-content: start; }
+figcaption { font-size: 13px; color: var(--muted); text-align: center; max-width: 260px; line-height: 1.5; }
+
+/* 장 = [그림 | 글] */
+.chapter { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 40px; align-items: start; }
+.chapter.flip { grid-template-columns: minmax(0, 1fr) 260px; }
+.chapter.flip > figure { order: 2; }
+.text { display: grid; gap: 16px; min-width: 0; }
+.steps { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; counter-reset: s; }
+.steps li { display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 12px; align-items: start; }
+.steps li::before { counter-increment: s; content: counter(s); width: 32px; height: 32px; border-radius: 9px; background: var(--gold); color: var(--wood); font-family: var(--num); font-size: 18px; display: grid; place-items: center; }
+.pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.box { background: var(--panel); border: 1.5px solid var(--edge); border-radius: 14px; padding: 14px 16px; display: grid; gap: 6px; min-width: 0; }
+.box h3 { font-size: 19px; }
+.box p { font-size: 15px; }
+
+/* 양피지 판(계산 · 표) */
+.sheet { background: var(--parch); color: var(--parch-ink); border-radius: 16px; padding: 18px 20px; display: grid; gap: 12px; border: 3px solid #120d08; }
+.sheet b, .sheet strong { color: var(--parch-ink); }
+.sheet .muted { color: var(--parch-muted); }
+.calc .row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: baseline; border-bottom: 1px dashed #c9b88e; padding-bottom: 6px; font-size: 15px; }
+.calc .row .n { font-size: 19px; }
+.total { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px; padding-top: 4px; }
+.chip { font-family: var(--num); font-size: 26px; padding: 2px 16px; border-radius: 10px; border: 2.5px solid #120d08; line-height: 1.4; }
+.chip.t { background: var(--troops); color: var(--troops-ink); }
+.chip.m { background: var(--mult); color: #fff; }
+.chip.d { background: var(--dmg); color: var(--parch-ink); }
+.op { font-family: var(--num); font-size: 24px; color: var(--parch-muted); }
+.tbl { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 15px; }
+th, td { text-align: left; padding: 7px 10px; border-bottom: 1px solid #d6c59b; vertical-align: middle; }
+th { font-size: 12px; letter-spacing: .08em; color: var(--parch-muted); white-space: nowrap; }
+td.v { font-family: var(--num); white-space: nowrap; font-variant-numeric: tabular-nums; }
+td.v .t { color: #0d7f97; } td.v .m { color: var(--mult); }
+.mini { display: inline-flex; gap: 3px; vertical-align: middle; }
+.mini i { width: 20px; height: 26px; border-radius: 4px; background: #fffaf0; border: 1.5px solid #120d08; border-top: 5px solid var(--c); font-style: normal; font-family: var(--num); font-size: 12px; display: grid; place-items: center; color: var(--parch-ink); line-height: 1; }
+.c-sky { --c: var(--sky); } .c-sea { --c: var(--sea); } .c-earth { --c: var(--earth); } .c-hell { --c: var(--hell); }
+
+/* 진영 */
+.factions { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.fac { border-radius: 12px; padding: 10px 12px; border: 2px solid var(--c); background: color-mix(in srgb, var(--c) 14%, var(--panel)); display: grid; gap: 2px; min-width: 0; }
+.fac b { font-family: var(--display); font-weight: 400; font-size: 20px; color: var(--c); }
+.fac span { font-size: 13px; line-height: 1.5; }
+
+/* 지도 줄 */
+.gates { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 6px; }
+.gate { background: var(--panel); border: 1.5px solid var(--edge); border-radius: 10px; padding: 8px 6px; text-align: center; display: grid; gap: 4px; min-width: 0; }
+.gate .n { font-size: 22px; color: var(--gold); line-height: 1; }
+.gate .dots { display: flex; justify-content: center; gap: 4px; align-items: center; }
+.gate .dots i { width: 9px; height: 9px; border-radius: 50%; background: var(--muted); }
+.gate .dots i.big { width: 15px; height: 15px; background: var(--red); border: 2px solid var(--gold); }
+.gate small { font-size: 11px; color: var(--muted); line-height: 1.3; }
+.gate.king { border-color: #9a6bd8; }
+.legend { font-size: 13px; color: var(--muted); }
+
+.tips { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.tip { background: var(--panel); border-radius: 14px; padding: 14px 16px; border: 1.5px dashed var(--edge); display: grid; gap: 4px; min-width: 0; }
+.tip b { font-family: var(--display); font-weight: 400; font-size: 19px; }
+.tip p { font-size: 15px; }
+
+footer { border-top: 1px solid var(--edge); padding-top: 20px; display: grid; gap: 6px; font-size: 14px; color: var(--muted); }
+
+@media (max-width: 760px) {
+  .hero, .chapter, .chapter.flip { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .chapter.flip > figure { order: 0; }
+  .hero figure { order: -1; }
+  .pair, .tips { grid-template-columns: minmax(0, 1fr); }
+  .factions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .gates { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .phone { max-width: 230px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .toc a { transition: border-color .15s, color .15s; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="copy">
+      <div class="eyebrow">LEGION HAND · 플레이 안내</div>
+      <h1>Legion Hand</h1>
+      <p class="pitch">포커 족보로 카드를 내고, 크리처 군단이 그 힘을 키운다.<br>6개의 관문을 넘어 흑요석 왕을 쓰러뜨리는 카드 로그라이크.</p>
+      <ul>
+        <li>한 번의 도전을 <b>런</b>이라고 불러요. 지면 처음부터 다시, 대신 멀리 갈수록 새 덱이 열려요.</li>
+        <li>알아야 할 것은 <b>족보 · 병력 × 배율 · 크리처</b> 세 가지.</li>
+        <li>첫 전투는 게임 안 튜토리얼이 버튼을 짚으며 알려 줘요. 이 페이지는 그 전체 그림이에요.</li>
+      </ul>
+      <nav class="toc" aria-label="차례">
+        <a href="#run">한 런의 흐름</a><a href="#battle">전투</a><a href="#damage">피해 계산</a><a href="#creatures">크리처</a><a href="#enemies">수문장</a><a href="#shop">상점</a><a href="#tips">처음 팁</a>
+      </nav>
+    </div>
+    <figure><img class="phone" src="img/title.jpg" alt="Legion Hand 타이틀 화면 — 새 런 · 오늘의 도전 · 랭킹 · 도감 버튼" width="540" height="972"></figure>
+  </header>
+
+  <section class="chapter" id="run">
+    <figure>
+      <img class="phone" src="img/march.jpg" alt="행군 지도 — 세로로 이어진 길 위에 판 원 18개, 아래에 지금 판 정보와 싸우기 · 건너뛰기 버튼" width="540" height="972" loading="lazy">
+      <figcaption>행군 지도. 원을 누르면 그 판의 적을 미리 볼 수 있어요.</figcaption>
+    </figure>
+    <div class="text">
+      <div class="eyebrow">1 · 한 런의 흐름</div>
+      <h2>6관문, 18판을 지나 흑요석 왕까지</h2>
+      <p>관문마다 세 판이 있어요. <b>순찰대 → 정예 → 수문장</b>. 판을 이기면 골드를 받고 상점에 들러 군단을 키운 뒤 다음 판으로 갑니다. 한 판이라도 지면 런이 끝나요.</p>
+      <div class="gates" role="list" aria-label="관문 6개">
+        <div class="gate" role="listitem"><span class="n">1</span><span class="dots"><i></i><i></i><i class="big"></i></span><small>영역 고르기</small></div>
+        <div class="gate" role="listitem"><span class="n">2</span><span class="dots"><i></i><i></i><i class="big"></i></span><small>이기면 칸 +1</small></div>
+        <div class="gate" role="listitem"><span class="n">3</span><span class="dots"><i></i><i></i><i class="big"></i></span><small>영역 고르기</small></div>
+        <div class="gate" role="listitem"><span class="n">4</span><span class="dots"><i></i><i></i><i class="big"></i></span><small>이기면 칸 +1</small></div>
+        <div class="gate" role="listitem"><span class="n">5</span><span class="dots"><i></i><i></i><i class="big"></i></span><small>영역 주인</small></div>
+        <div class="gate king" role="listitem"><span class="n">6</span><span class="dots"><i></i><i></i><i class="big"></i></span><small>흑요석 왕</small></div>
+      </div>
+      <p class="legend">작은 점 = 순찰대 · 정예, 큰 점 = 수문장</p>
+      <ul class="steps">
+        <li><span><b>영역 고르기</b> — 관문 1과 3에서 두 영역 중 하나를 골라요. 고른 영역의 수문장이 다음 두 관문을 지켜요. 수문장의 이름 · 병력 · 스킬이 미리 다 보이니, 받아칠 준비를 하고 고르세요.</span></li>
+        <li><span><b>싸우기 또는 건너뛰기</b> — 순찰대와 정예는 건너뛸 수 있어요. 건너뛰면 골드는 못 받지만 대신 보상 하나(크리처 팩 · 강화 팩 · 다음 상점 크리처 무료 · 스킬 막대 +2 · 골드)를 받아요. 수문장은 건너뛸 수 없어요.</span></li>
+        <li><span><b>정산 → 상점</b> — 이긴 판의 보상, 남은 출진 1번당 1골드, 그리고 <b>이자</b>(가진 골드 5당 +1, 최대 +5)를 받고 상점으로 가요.</span></li>
+      </ul>
+      <p class="muted">수문장을 이기면 그 수문장이 다음 상점에 크리처로 나오고, 관문 2 · 4 수문장을 이기면 크리처 칸이 하나씩 늘어요(3칸 → 5칸).</p>
+    </div>
+  </section>
+
+  <section class="chapter flip" id="battle">
+    <figure>
+      <img class="phone" src="img/battle.jpg" alt="전투 화면 — 위에 적 사슴왕과 병력 막대, 가운데 크리처 파티 다섯 칸과 진영 칩, 추천 버튼, 고른 족보 원 페어의 병력 × 배율 = 피해, 아래 손패 카드" width="540" height="972" loading="lazy">
+      <figcaption>전투 화면. 카드를 고르면 가운데에 족보와 피해가 바로 계산돼요.</figcaption>
+    </figure>
+    <div class="text">
+      <div class="eyebrow">2 · 전투</div>
+      <h2>손패에서 족보를 만들어 출진</h2>
+      <p>카드는 네 진영 색(<span style="color:var(--sky)">바람</span> · <span style="color:var(--sea)">물</span> · <span style="color:var(--earth)">땅</span> · <span style="color:var(--hell)">불</span>)에 숫자 1~13. 손에 8장을 들고 시작해요.</p>
+      <ul class="steps">
+        <li><span><b>카드 1~5장을 고른다</b> — 고르는 즉시 어떤 족보인지, 피해가 얼마인지 보여요. 위 <b>추천</b> 버튼은 지금 손패로 만들 수 있는 가장 센 조합을 골라 줘요.</span></li>
+        <li><span><b>출진</b> — 고른 카드를 내서 적 병력을 깎아요. 낸 만큼 손패가 다시 채워져요.</span></li>
+        <li><span><b>재편</b> — 마음에 안 드는 카드를 골라 버리고 새로 뽑아요. 출진 횟수는 줄지 않아요.</span></li>
+      </ul>
+      <div class="pair">
+        <div class="box"><h3>출진 4번</h3><p>4번 안에 적 병력을 0으로 만들면 승리. 다 쓰고도 남으면 런이 끝나요.</p></div>
+        <div class="box"><h3>재편 3번</h3><p>전투마다 3번. 큰 족보를 노릴 때 아끼지 말고 쓰세요.</p></div>
+      </div>
+      <p class="muted">카드를 길게 누르면 크게 볼 수 있어요. 적 아래 빨간 띠는 적이 다음에 할 행동이에요.</p>
+    </div>
+  </section>
+
+  <section class="text" id="damage">
+    <div class="eyebrow">3 · 피해 계산</div>
+    <h2>피해 = 병력 × 배율</h2>
+    <p><span style="color:var(--troops)">파란 숫자</span>가 병력, <span style="color:#ff6fb2">분홍 숫자</span>가 배율, <span style="color:var(--dmg)">노란 숫자</span>가 적에게 들어가는 피해예요. 족보가 어려울수록 기본 병력과 배율이 커요.</p>
+    <div class="pair">
+      <div class="sheet calc">
+        <h3 style="color:var(--parch-ink)">예: 7 · 7 · 7 트리플</h3>
+        <p class="muted" style="font-size:14px">파티에 그리핀(바람 카드 1장마다 병력 +12)과 해룡(같은 숫자 2장 이상이면 배율 +4)이 있을 때. 7 하나가 바람 카드예요.</p>
+        <div class="row"><span>트리플 기본 병력 30 + 카드 숫자 7 + 7 + 7</span><span class="n">51</span></div>
+        <div class="row"><span>그리핀 — 바람 카드 1장 → 병력 +12</span><span class="n">63</span></div>
+        <div class="row"><span>트리플 배율 3 + 해룡 +4</span><span class="n">7</span></div>
+        <div class="total"><span class="chip t">63</span><span class="op">×</span><span class="chip m">7</span><span class="op">=</span><span class="chip d">441</span></div>
+      </div>
+      <div class="sheet">
+        <h3 style="color:var(--parch-ink)">계산 순서</h3>
+        <ul class="steps">
+          <li><span><b>병력</b> = 족보 기본 병력 + 족보에 든 카드 숫자 + 크리처 · 스킬이 더한 병력</span></li>
+          <li><span><b>배율</b> = 족보 배율에 <b>+배율</b>을 모두 더한 뒤, <b>×배율</b>을 모두 곱해요</span></li>
+          <li><span>족보에 안 든 카드를 같이 내면 점수 없이 버려져요</span></li>
+        </ul>
+        <p class="muted" style="font-size:14px">크리처가 어느 칸에 있든 결과는 같아요.</p>
+      </div>
+    </div>
+    <div class="sheet">
+      <h3 style="color:var(--parch-ink)">족보표</h3>
+      <div class="tbl">
+        <table>
+          <thead><tr><th>족보</th><th>모양</th><th>예</th><th>병력 × 배율</th></tr></thead>
+          <tbody>
+            <tr><td>파이브 카드</td><td>같은 숫자 5장</td><td><span class="mini"><i class="c-sky">7</i><i class="c-sea">7</i><i class="c-earth">7</i><i class="c-hell">7</i><i class="c-sky">7</i></span></td><td class="v"><span class="t">120</span> × <span class="m">12</span></td></tr>
+            <tr><td>스트레이트 플러시</td><td>같은 색 + 연속 숫자 5장</td><td><span class="mini"><i class="c-sea">3</i><i class="c-sea">4</i><i class="c-sea">5</i><i class="c-sea">6</i><i class="c-sea">7</i></span></td><td class="v"><span class="t">100</span> × <span class="m">8</span></td></tr>
+            <tr><td>포카드</td><td>같은 숫자 4장</td><td><span class="mini"><i class="c-sky">9</i><i class="c-sea">9</i><i class="c-earth">9</i><i class="c-hell">9</i></span></td><td class="v"><span class="t">60</span> × <span class="m">7</span></td></tr>
+            <tr><td>풀하우스</td><td>같은 숫자 3장 + 2장</td><td><span class="mini"><i class="c-sky">5</i><i class="c-earth">5</i><i class="c-hell">5</i><i class="c-sea">2</i><i class="c-sky">2</i></span></td><td class="v"><span class="t">40</span> × <span class="m">4</span></td></tr>
+            <tr><td>플러시</td><td>같은 색 5장</td><td><span class="mini"><i class="c-hell">2</i><i class="c-hell">6</i><i class="c-hell">8</i><i class="c-hell">11</i><i class="c-hell">13</i></span></td><td class="v"><span class="t">35</span> × <span class="m">4</span></td></tr>
+            <tr><td>스트레이트</td><td>연속 숫자 5장</td><td><span class="mini"><i class="c-sky">4</i><i class="c-earth">5</i><i class="c-sea">6</i><i class="c-hell">7</i><i class="c-sky">8</i></span></td><td class="v"><span class="t">30</span> × <span class="m">4</span></td></tr>
+            <tr><td>트리플</td><td>같은 숫자 3장</td><td><span class="mini"><i class="c-sky">7</i><i class="c-sea">7</i><i class="c-earth">7</i></span></td><td class="v"><span class="t">30</span> × <span class="m">3</span></td></tr>
+            <tr><td>투 페어</td><td>같은 숫자 2장 + 2장</td><td><span class="mini"><i class="c-sea">10</i><i class="c-hell">10</i><i class="c-sky">3</i><i class="c-earth">3</i></span></td><td class="v"><span class="t">20</span> × <span class="m">2</span></td></tr>
+            <tr><td>원 페어</td><td>같은 숫자 2장</td><td><span class="mini"><i class="c-earth">12</i><i class="c-sky">12</i></span></td><td class="v"><span class="t">10</span> × <span class="m">2</span></td></tr>
+            <tr><td>하이 카드</td><td>족보가 없을 때 가장 높은 1장</td><td><span class="mini"><i class="c-hell">13</i></span></td><td class="v"><span class="t">5</span> × <span class="m">1</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="muted" style="font-size:14px">상점에서 족보를 <b>강화(★)</b>하면 그 족보의 병력과 배율이 런 끝까지 올라가요. 게임 안에서는 오른쪽 위 <b>?</b> 버튼으로 언제든 이 표를 볼 수 있어요.</p>
+    </div>
+  </section>
+
+  <section class="chapter" id="creatures">
+    <figure>
+      <img class="phone" src="img/reveal.jpg" alt="출진 연출 — 크리처 위에 더한 병력 숫자가 뜨고 적에게 피해 숫자가 튀어 나옴" width="540" height="972" loading="lazy">
+      <figcaption>출진하면 조건이 맞은 크리처 위에 더한 값이 떠요.</figcaption>
+    </figure>
+    <div class="text">
+      <div class="eyebrow">4 · 크리처</div>
+      <h2>크리처 파티가 족보를 키운다</h2>
+      <p>파티는 3칸으로 시작해 5칸까지 늘어요. 첫 런은 크리처 없이 시작하고, 첫 상점에서 첫 크리처를 사요. 크리처 칸을 누르면 자세한 정보 창이 열려요.</p>
+      <div class="pair">
+        <div class="box"><h3>능력 — 늘 켜져 있음</h3><p>"바람 카드 1장마다 병력 +12"처럼 조건이 맞으면 출진 때 저절로 병력이나 배율을 더해요.</p></div>
+        <div class="box"><h3>스킬 — 막대가 차면 사용</h3><p>출진 · 재편할 때마다 막대가 한 칸씩 차요. 다 차면 크리처 칸을 눌러 [사용]. 카드 바꾸기, 얼음 녹이기, 다음 출진 강화 같은 일을 해요.</p></div>
+      </div>
+      <h3>같은 색 2 · 3마리 = 진영 보너스</h3>
+      <div class="factions">
+        <div class="fac" style="--c: var(--earth)"><b>땅</b><span>2마리 병력 +40<br>3마리 병력 +100</span></div>
+        <div class="fac" style="--c: var(--hell)"><b>불</b><span>2마리 배율 +1<br>3마리 배율 +2</span></div>
+        <div class="fac" style="--c: var(--sky)"><b>바람</b><span>2마리 배율 ×1.1<br>3마리 배율 ×1.25</span></div>
+        <div class="fac" style="--c: var(--sea)"><b>물</b><span>2마리 재편 +1<br>3마리 재편마다 병력 +50</span></div>
+      </div>
+      <p><b>진화</b> — 크리처는 Ⅰ · Ⅱ · Ⅲ 단계가 있어요. 능력이 여러 번 터지면 Ⅱ로 진화하고, Ⅲ은 <b>진화의 돌</b>이나 같은 진영 영역 주인을 이기고 얻는 재료로만 올라가요. 진화하면 능력 수치가 커지고 스킬 막대가 짧아져요.</p>
+    </div>
+  </section>
+
+  <section class="chapter flip" id="enemies">
+    <figure>
+      <img class="phone" src="img/boss.jpg" alt="행군 지도에서 관문 2 수문장 사슴왕 판을 본 화면 — 병력 1,815 · 재생 · 독 카드 · 선제 · 분노 스킬" width="540" height="972" loading="lazy">
+      <figcaption>수문장 판. 지도 아래 줄에 병력과 스킬이 미리 보여요.</figcaption>
+    </figure>
+    <div class="text">
+      <div class="eyebrow">5 · 적과 수문장</div>
+      <h2>수문장은 방해를 건다</h2>
+      <p>적은 다음에 할 행동을 미리 보여 줘요. 순찰대와 정예는 병력만 많지만, 수문장과 흑요석 왕은 손패와 파티를 방해해요. 행군 지도에서 미리 확인하고, 받아칠 크리처를 모아 가세요.</p>
+      <div class="sheet">
+        <div class="tbl">
+          <table>
+            <thead><tr><th>방해</th><th>무슨 일</th><th>푸는 법</th></tr></thead>
+            <tbody>
+              <tr><td><b>얼림</b></td><td>카드 몇 장을 몇 번의 출진 동안 못 내요</td><td>시간이 지나면 녹아요 · 녹이는 스킬</td></tr>
+              <tr><td><b>묶기</b></td><td>가장 값진 크리처가 잠시 쉬어요</td><td>그 크리처 색 카드가 든 족보를 내면 풀려요</td></tr>
+              <tr><td><b>독</b></td><td>출진할 때마다 배율이 조금씩 줄어요(최소 1)</td><td>빨리 끝내기 · 해독하는 스킬</td></tr>
+              <tr><td><b>독 카드</b></td><td>족보에 못 쓰는 카드가 손에 섞여요</td><td>재편으로 버리기 · 전투가 끝나면 사라져요</td></tr>
+              <tr><td><b>재생</b></td><td>몇 번 출진 뒤 병력을 회복해요</td><td>재생 전에 큰 족보로 몰아치기</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="chapter" id="shop">
+    <figure>
+      <img class="phone" src="img/shop.jpg" alt="상점 — 위에 크리처 카드, 아래에 스트레이트 강화 · 크리처 팩 · 강화 팩 · 런 강화 상품 카드, 맨 아래 떠나기 버튼" width="540" height="972" loading="lazy">
+      <figcaption>상점. 상품을 누르면 설명 창이 열리고 [구매]로 사요.</figcaption>
+    </figure>
+    <div class="text">
+      <div class="eyebrow">6 · 정산과 상점</div>
+      <h2>판 사이에 군단을 키운다</h2>
+      <p>판을 이길 때마다 상점에 들러요. 골드는 다음 상점까지 이어지고, 남겨 두면 이자가 붙어요.</p>
+      <div class="pair">
+        <div class="box"><h3>크리처</h3><p>파티에 넣을 크리처. 칸이 꽉 차면 하나를 놓아주고 값의 절반을 돌려받아요.</p></div>
+        <div class="box"><h3>족보 강화 ★</h3><p>그 족보의 병력과 배율이 런 끝까지 올라요. 자주 내는 족보를 키우세요.</p></div>
+        <div class="box"><h3>팩</h3><p>열어서 셋 중 하나를 골라요. 크리처 팩과 강화 팩이 있어요.</p></div>
+        <div class="box"><h3>진화의 돌 · 런 강화</h3><p>돌은 크리처 하나를 한 단계 진화. 런 강화는 출진 · 재편 · 손패 · 크리처 칸 +1(종류마다 한 번).</p></div>
+      </div>
+      <p class="muted">새로고침은 5골드부터(할 때마다 +1). 이자는 가진 골드 5당 +1, 최대 +5예요.</p>
+    </div>
+  </section>
+
+  <section class="text" id="tips">
+    <div class="eyebrow">7 · 처음 하는 분께</div>
+    <h2>처음 몇 런을 위한 팁</h2>
+    <div class="tips">
+      <div class="tip"><b>추천 버튼부터</b><p>어떤 족보가 나오는지 헷갈리면 추천 버튼을 눌러 보세요. 가장 센 조합을 골라 줘요.</p></div>
+      <div class="tip"><b>같은 색을 모으세요</b><p>같은 색 크리처 2마리면 진영 보너스가 켜져요. 색을 정하고 그 색 카드와 크리처를 모으면 강해져요.</p></div>
+      <div class="tip"><b>족보 하나를 키우세요</b><p>투 페어든 플러시든, 자주 나오는 족보 하나를 정해서 상점에서 계속 강화하면 피해가 크게 뛰어요.</p></div>
+      <div class="tip"><b>수문장은 미리 보고</b><p>행군 지도에서 수문장 원을 눌러 스킬을 확인하세요. 얼림이면 녹이는 크리처, 재생이면 한 방이 큰 조합을 준비해요.</p></div>
+      <div class="tip"><b>출진을 남기면 골드</b><p>적을 빨리 쓰러뜨려 남은 출진 1번마다 1골드. 골드를 5 단위로 남기면 이자도 붙어요.</p></div>
+      <div class="tip"><b>재편은 아끼지 않기</b><p>재편은 출진 횟수를 쓰지 않아요. 큰 족보 직전이라면 재편으로 한 장을 더 노려 보세요.</p></div>
+    </div>
+  </section>
+
+  <section class="text">
+    <div class="eyebrow">그 밖에</div>
+    <div class="pair">
+      <div class="box"><h3>새 덱 열기</h3><p>관문 2, 관문 4에 처음 도착하거나 흑요석 왕을 이기면 새 시작 덱이 하나씩 열려요. 짧은 덱 · 큰 숫자 덱 · 불꽃 덱은 각자 다르게 놀아요.</p></div>
+      <div class="box"><h3>오늘의 도전</h3><p>그날은 모두 같은 조건(같은 시드)으로 겨뤄요. 첫 도전만 순위에 들어가요.</p></div>
+      <div class="box"><h3>무한 행군</h3><p>흑요석 왕을 이긴 뒤 관문 7부터 계속 갈 수 있어요. 어디까지 갈 수 있을까요?</p></div>
+      <div class="box"><h3>도감</h3><p>만난 크리처가 하나씩 채워져요.</p></div>
+    </div>
+  </section>
+
+  <footer>
+    <span>Legion Hand · 무료 · 광고 포함 · Android</span>
+    <span>개인정보처리방침: <a href="https://jeddli.github.io/lee4family-policies/legion-hand/">jeddli.github.io/lee4family-policies/legion-hand</a></span>
+    <span>문의: leefourfamily@gmail.com</span>
+  </footer>
+</div>
+</body>
+</html>
