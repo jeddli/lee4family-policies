@@ -1,0 +1,368 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Legion Hand How to Play</title>
+<meta name="description" content="Legion Hand — a card roguelike where poker hands lead a creature legion. How to play, for first-time players.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Gothic+A1:wght@400;700;900&family=Lilita+One&display=swap">
+<style>
+/* 레이아웃: 게임 안 "작전 테이블" — 나무 바탕 위에 장마다 [폰 화면 | 설명] 을 나란히(좁으면 위아래), 계산 · 족보표 · 방해표는 양피지 판으로 */
+:root {
+  --wood: #1b140e; --panel: #241a12; --edge: #6b5428; --ink: #efe6d2; --muted: #b9a37c;
+  --parch: #efe2c0; --parch-ink: #2a1e12; --parch-muted: #6a5636; --gold: #ecbf55; --gold-deep: #a7802f;
+  --red: #d9473a; --troops: #2ccceb; --troops-ink: #0b2a33; --mult: #c2367f; --dmg: #f2c632;
+  --sky: #8f9cf0; --sea: #3fb7cf; --earth: #6cc47a; --hell: #f08c3a;
+  --display: "Do Hyeon", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --body: "Gothic A1", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --num: "Lilita One", "Do Hyeon", "Arial Black", sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { background: var(--wood); }
+body { background: radial-gradient(120% 60% at 50% 0%, #2c2016 0%, var(--wood) 60%) var(--wood); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.75; }
+.wrap { max-width: 980px; margin: 0 auto; padding-block: 32px 80px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 72px; }
+h1, h2, h3 { font-family: var(--display); font-weight: 400; line-height: 1.2; margin: 0; text-wrap: balance; }
+h2 { font-size: clamp(28px, 5vw, 36px); color: var(--gold); }
+h3 { font-size: 21px; color: var(--ink); }
+p { margin: 0; max-width: 62ch; }
+b, strong { color: var(--gold); font-weight: 700; }
+a { color: var(--gold); }
+a:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+.muted { color: var(--muted); }
+.n { font-family: var(--num); font-variant-numeric: tabular-nums; letter-spacing: .5px; }
+.eyebrow { font-size: 13px; letter-spacing: .12em; color: var(--gold-deep); font-weight: 900; }
+
+/* 첫 화면 */
+.hero { display: grid; grid-template-columns: minmax(0, 1fr) 260px; gap: 40px; align-items: center; }
+.hero h1 { font-size: clamp(44px, 9vw, 76px); color: var(--gold); letter-spacing: 1px; }
+.hero .pitch { font-size: clamp(19px, 3vw, 23px); font-family: var(--display); line-height: 1.45; }
+.hero .copy { display: grid; gap: 18px; }
+.hero ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; }
+.hero li { padding-left: 22px; position: relative; }
+.hero li::before { content: ""; position: absolute; left: 4px; top: .7em; width: 9px; height: 9px; border-radius: 2px; background: var(--gold); transform: rotate(45deg); }
+.toc { display: flex; flex-wrap: wrap; gap: 8px; }
+.toc a { text-decoration: none; color: var(--ink); background: var(--panel); border: 1.5px solid var(--edge); border-radius: 999px; padding: 3px 13px; font-size: 14px; font-weight: 700; }
+.toc a:hover { border-color: var(--gold); color: var(--gold); }
+.phone { width: 100%; max-width: 260px; height: auto; aspect-ratio: 540 / 1037; border-radius: 22px; border: 3px solid #0e0a06; box-shadow: 0 0 0 2px var(--edge), 0 18px 40px #0008; display: block; background: var(--wood); }
+figure { margin: 0; display: grid; gap: 8px; justify-items: center; align-content: start; }
+figcaption { font-size: 13px; color: var(--muted); text-align: center; max-width: 260px; line-height: 1.5; }
+
+/* 장 = [그림 | 글] */
+.chapter { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 40px; align-items: start; }
+.chapter.flip { grid-template-columns: minmax(0, 1fr) 260px; }
+.chapter.flip > figure { order: 2; }
+.text { display: grid; gap: 16px; min-width: 0; }
+.steps { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; counter-reset: s; }
+.steps li { display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 12px; align-items: start; }
+.steps li::before { counter-increment: s; content: counter(s); width: 32px; height: 32px; border-radius: 9px; background: var(--gold); color: var(--wood); font-family: var(--num); font-size: 18px; display: grid; place-items: center; }
+.pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.box { background: var(--panel); border: 1.5px solid var(--edge); border-radius: 14px; padding: 14px 16px; display: grid; gap: 6px; min-width: 0; }
+.box h3 { font-size: 19px; }
+.box p { font-size: 15px; }
+
+/* 양피지 판(계산 · 표) */
+.sheet { background: var(--parch); color: var(--parch-ink); border-radius: 16px; padding: 18px 20px; display: grid; gap: 12px; border: 3px solid #120d08; }
+.sheet b, .sheet strong { color: var(--parch-ink); }
+.sheet .muted { color: var(--parch-muted); }
+.calc .row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: baseline; border-bottom: 1px dashed #c9b88e; padding-bottom: 6px; font-size: 15px; }
+.calc .row .n { font-size: 19px; }
+.total { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px; padding-top: 4px; }
+.chip { font-family: var(--num); font-size: 26px; padding: 2px 16px; border-radius: 10px; border: 2.5px solid #120d08; line-height: 1.4; }
+.chip.t { background: var(--troops); color: var(--troops-ink); }
+.chip.m { background: var(--mult); color: #fff; }
+.chip.d { background: var(--dmg); color: var(--parch-ink); }
+.op { font-family: var(--num); font-size: 24px; color: var(--parch-muted); }
+.ladder { gap: 0; }
+.ladder h3 { margin-bottom: 8px; }
+.rung { display: grid; grid-template-columns: 34px minmax(0, 1fr) auto; gap: 14px; align-items: center; padding: 12px 0; border-bottom: 1px dashed #c9b88e; }
+.rung .no { width: 34px; height: 34px; border-radius: 10px; background: var(--parch-ink); color: var(--parch); font-family: var(--num); font-size: 18px; display: grid; place-items: center; }
+.rung .say { font-size: 15.5px; line-height: 1.6; min-width: 0; }
+.rung .eq { display: flex; align-items: center; gap: 6px; justify-content: flex-end; }
+.rung .chip { font-size: 21px; padding: 0 11px; }
+.rung .op { font-size: 19px; }
+.say-end { padding-top: 12px; font-size: 15.5px; max-width: none; }
+.tbl { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 15px; color: inherit; }
+th, td { text-align: left; padding: 7px 10px; border-bottom: 1px solid #d6c59b; vertical-align: middle; }
+th { font-size: 12px; letter-spacing: .08em; color: var(--parch-muted); white-space: nowrap; }
+td.v { font-family: var(--num); white-space: nowrap; font-variant-numeric: tabular-nums; }
+td.v .t { color: #0d7f97; } td.v .m { color: var(--mult); }
+.mini { display: inline-flex; gap: 3px; vertical-align: middle; }
+.mini i { width: 20px; height: 26px; border-radius: 4px; background: #fffaf0; border: 1.5px solid #120d08; border-top: 5px solid var(--c); font-style: normal; font-family: var(--num); font-size: 12px; display: grid; place-items: center; color: var(--parch-ink); line-height: 1; }
+.c-sky { --c: var(--sky); } .c-sea { --c: var(--sea); } .c-earth { --c: var(--earth); } .c-hell { --c: var(--hell); }
+
+/* 진영 */
+.factions { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.fac { border-radius: 12px; padding: 10px 12px; border: 2px solid var(--c); background: color-mix(in srgb, var(--c) 14%, var(--panel)); display: grid; gap: 2px; min-width: 0; }
+.fac b { font-family: var(--display); font-weight: 400; font-size: 20px; color: var(--c); }
+.fac span { font-size: 13px; line-height: 1.5; }
+
+/* 지도 줄 */
+.gates { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 6px; }
+.gate { background: var(--panel); border: 1.5px solid var(--edge); border-radius: 10px; padding: 8px 6px; text-align: center; display: grid; gap: 4px; min-width: 0; }
+.gate .n { font-size: 22px; color: var(--gold); line-height: 1; }
+.gate .dots { display: flex; justify-content: center; gap: 4px; align-items: center; }
+.gate .dots i { width: 9px; height: 9px; border-radius: 50%; background: var(--muted); }
+.gate .dots i.big { width: 15px; height: 15px; background: var(--red); border: 2px solid var(--gold); }
+.gate small { font-size: 11px; color: var(--muted); line-height: 1.3; }
+.gate.king { border-color: #9a6bd8; }
+.legend { font-size: 13px; color: var(--muted); }
+
+.tips { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.tip { background: var(--panel); border-radius: 14px; padding: 14px 16px; border: 1.5px dashed var(--edge); display: grid; gap: 4px; min-width: 0; }
+.tip b { font-family: var(--display); font-weight: 400; font-size: 19px; }
+.tip p { font-size: 15px; }
+
+footer { border-top: 1px solid var(--edge); padding-top: 20px; display: grid; gap: 6px; font-size: 14px; color: var(--muted); }
+
+@media (max-width: 760px) {
+  .hero, .chapter, .chapter.flip { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .chapter.flip > figure { order: 0; }
+  .hero figure { order: -1; }
+  .pair, .tips { grid-template-columns: minmax(0, 1fr); }
+  .factions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .rung { grid-template-columns: 34px minmax(0, 1fr); }
+  .rung .eq { grid-column: 2; justify-content: flex-start; }
+  .gates { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .phone { max-width: 230px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .toc a { transition: border-color .15s, color .15s; }
+}
+</style>
+</head>
+<body>
+
+<div class="wrap" lang="en">
+
+  <header class="hero">
+    <div class="copy">
+      <div class="eyebrow">LEGION HAND · HOW TO PLAY</div>
+      <h1>Legion Hand</h1>
+      <p class="pitch">Make poker hands. Let creatures blow up the score.<br>A card roguelike where poker hands attack and creature combos multiply the damage — not an RPG where you grind levels.</p>
+      <ul>
+        <li>One attempt is called a <b>run</b>. Lose and you start over — but going further unlocks new decks.</li>
+        <li>Three things to know: <b>hands · Troops × Mult · creatures</b>.</li>
+        <li>The in-game tutorial walks you through your first battle. This page is the big picture.</li>
+      </ul>
+      <nav class="toc" aria-label="Contents">
+        <a href="#run">A run</a><a href="#battle">Battle</a><a href="#damage">Damage</a><a href="#creatures">Creatures</a><a href="#enemies">Gatekeepers</a><a href="#shop">Shop</a><a href="#tips">Tips</a><a href="../" lang="ko" hreflang="ko">한국어</a>
+      </nav>
+    </div>
+    <figure><img class="phone" src="img/title.jpg" alt="Legion Hand title screen — New Run, Daily Challenge, My Records and Codex buttons" width="540" height="1037"></figure>
+  </header>
+
+  <section class="chapter" id="run">
+    <figure>
+      <img class="phone" src="img/march.jpg" alt="March map — circles along a winding road, the creature party and faction chips on top, and the next battle (Gate 2 Gatekeeper Leviathan) with a Fight button at the bottom" width="540" height="1037" loading="lazy">
+      <figcaption>The march map. Tap a circle to preview that battle's enemy.</figcaption>
+    </figure>
+    <div class="text">
+      <div class="eyebrow">1 · A run</div>
+      <h2>6 gates, 18 battles, up to the Obsidian King</h2>
+      <p>Each gate has three battles: <b>Patrol → Elite → Gatekeeper</b>. Win a battle, earn gold, visit the shop to grow your legion, then march on. Lose a single battle and the run ends.</p>
+      <div class="gates" role="list" aria-label="6 gates">
+        <div class="gate" role="listitem"><span class="n">1</span><span class="dots"><i></i><i></i><i class="big"></i></span><small>Pick a realm</small></div>
+        <div class="gate" role="listitem"><span class="n">2</span><span class="dots"><i></i><i></i><i class="big"></i></span><small>Win: slot +1</small></div>
+        <div class="gate" role="listitem"><span class="n">3</span><span class="dots"><i></i><i></i><i class="big"></i></span><small>Pick a realm</small></div>
+        <div class="gate" role="listitem"><span class="n">4</span><span class="dots"><i></i><i></i><i class="big"></i></span><small>Win: slot +1</small></div>
+        <div class="gate" role="listitem"><span class="n">5</span><span class="dots"><i></i><i></i><i class="big"></i></span><small>Realm Lord</small></div>
+        <div class="gate king" role="listitem"><span class="n">6</span><span class="dots"><i></i><i></i><i class="big"></i></span><small>Obsidian King</small></div>
+      </div>
+      <p class="legend">Small dot = Patrol · Elite, big dot = Gatekeeper</p>
+      <ul class="steps">
+        <li><span><b>Pick a realm</b> — at gates 1 and 3 you choose one of two realms. Its Gatekeeper guards the next two gates. Their name, troops and skills are all shown up front, so pick the one you can counter.</span></li>
+        <li><span><b>Fight or skip</b> — Patrols and Elites can be skipped. Skipping gives no gold, but you get one reward instead (creature pack · upgrade pack · a free creature at the next shop · skill charge +2 · gold). Gatekeepers can't be skipped.</span></li>
+        <li><span><b>Settlement → shop</b> — the battle reward, 1 gold per ♥ left, and <b>interest</b> (+1 per 5 gold held, up to +5) stack up line by line, then you go to the shop. Tap once to skip the animation.</span></li>
+      </ul>
+      <p class="muted">Beat a Gatekeeper and it shows up as a creature in the next shop. Beating the gate 2 and gate 4 Gatekeepers each adds a creature slot (3 → 5).</p>
+    </div>
+  </section>
+
+  <section class="chapter flip" id="battle">
+    <figure>
+      <img class="phone" src="img/battle.jpg" alt="Battle screen — the enemy Leviathan with its troop bar and 4 deploy hearts on top, the chosen hand's Troops × Mult = Damage below it, and on the wooden tray the 5-slot creature party, Suggest buttons, the hand of cards and the Regroup and Deploy buttons" width="540" height="1037" loading="lazy">
+      <figcaption>The battle screen. The top is for reading (enemy · damage math), the wooden tray below is for tapping.</figcaption>
+    </figure>
+    <div class="text">
+      <div class="eyebrow">2 · Battle</div>
+      <h2>Build a hand, then deploy</h2>
+      <p>Cards come in four faction colors (<span style="color:var(--sky)">Wind</span> · <span style="color:var(--sea)">Water</span> · <span style="color:var(--earth)">Earth</span> · <span style="color:var(--hell)">Fire</span>) numbered 1–13. You start with 8 cards in hand.</p>
+      <ul class="steps">
+        <li><span><b>Pick 1–5 cards</b> — as soon as you pick, you see the hand and its damage. The <b>Suggest</b> buttons pick the strongest combos in your current hand.</span></li>
+        <li><span><b>Deploy</b> — play the picked cards to cut the enemy's troops. Each deploy uses one ♥. Your hand refills by the cards you played.</span></li>
+        <li><span><b>Regroup</b> — discard the cards you don't want and draw new ones. It costs no ♥.</span></li>
+      </ul>
+      <div class="pair">
+        <div class="box"><h3>4 deploy ♥</h3><p>Bring the enemy's troops to 0 before your ♥ run out and you win. If your last ♥ can't finish it, the run ends. Every ♥ left becomes gold.</p></div>
+        <div class="box"><h3>3 regroups</h3><p>Three per battle. Don't hold back when you're chasing a big hand.</p></div>
+      </div>
+      <p class="muted">Long-press a card to see it larger. The red strip under the enemy is what it will do next.</p>
+    </div>
+  </section>
+
+  <section class="text" id="damage">
+    <div class="eyebrow">3 · Damage</div>
+    <h2>Damage = Troops × Mult</h2>
+    <p>The <span style="color:var(--troops)">blue number</span> is Troops, the <span style="color:#ff6fb2">pink number</span> is Mult, and the <span style="color:var(--dmg)">yellow number</span> is the damage dealt. Harder hands have bigger base Troops and Mult.</p>
+    <div class="sheet ladder">
+      <h3 style="color:var(--parch-ink)">Playing 7 · 7 · 7 — step by step</h3>
+      <div class="rung">
+        <span class="no">1</span>
+        <div class="say"><b>The hand sets the Troops.</b> 7 · 7 · 7 is <b>Three of a Kind</b>. Card numbers 7 + 7 + 7 = 21, plus Three of a Kind's base 30 = <b>51 Troops</b>.</div>
+        <div class="eq"><span class="chip t">51</span></div>
+      </div>
+      <div class="rung">
+        <span class="no">2</span>
+        <div class="say"><b>The hand sets the Mult.</b> Three of a Kind's Mult is ×3.</div>
+        <div class="eq"><span class="chip t">51</span><span class="op">×</span><span class="chip m">3</span><span class="op">=</span><span class="chip d">153</span></div>
+      </div>
+      <div class="rung">
+        <span class="no">3</span>
+        <div class="say"><b>Creatures add Mult (+).</b> <b>Sea Dragon</b> gives Mult +4 when you play 2+ cards of the same number. Mult 3 + 4 = 7.</div>
+        <div class="eq"><span class="chip t">51</span><span class="op">×</span><span class="chip m">7</span><span class="op">=</span><span class="chip d">357</span></div>
+      </div>
+      <div class="rung">
+        <span class="no">4</span>
+        <div class="say"><b>Creatures multiply Mult (×).</b> <b>Dryad</b> gives Mult ×1.2 when the hand has an Earth card. Mult 7 × 1.2 = 8.4.</div>
+        <div class="eq"><span class="chip t">51</span><span class="op">×</span><span class="chip m">8.4</span><span class="op">=</span><span class="chip d">428</span></div>
+      </div>
+      <p class="say-end">Each creature adds Troops, adds Mult, or multiplies Mult. <b>All "+" bonuses are added first, then "×" multiplies</b> — so bringing adders and multipliers together makes damage snowball. Slot order doesn't matter, and cards outside the hand are discarded without scoring.</p>
+    </div>
+    <div class="sheet">
+      <h3 style="color:var(--parch-ink)">Hand rankings</h3>
+      <div class="tbl">
+        <table>
+          <thead><tr><th>Hand</th><th>Shape</th><th>Example</th><th>Troops × Mult</th></tr></thead>
+          <tbody>
+            <tr><td>Five of a Kind</td><td>5 of the same number</td><td><span class="mini"><i class="c-sky">7</i><i class="c-sea">7</i><i class="c-earth">7</i><i class="c-hell">7</i><i class="c-sky">7</i></span></td><td class="v"><span class="t">120</span> × <span class="m">12</span></td></tr>
+            <tr><td>Straight Flush</td><td>5 consecutive numbers, one faction</td><td><span class="mini"><i class="c-sea">3</i><i class="c-sea">4</i><i class="c-sea">5</i><i class="c-sea">6</i><i class="c-sea">7</i></span></td><td class="v"><span class="t">100</span> × <span class="m">8</span></td></tr>
+            <tr><td>Four of a Kind</td><td>4 of the same number</td><td><span class="mini"><i class="c-sky">9</i><i class="c-sea">9</i><i class="c-earth">9</i><i class="c-hell">9</i></span></td><td class="v"><span class="t">60</span> × <span class="m">7</span></td></tr>
+            <tr><td>Full House</td><td>3 of a number + 2 of another</td><td><span class="mini"><i class="c-sky">5</i><i class="c-earth">5</i><i class="c-hell">5</i><i class="c-sea">2</i><i class="c-sky">2</i></span></td><td class="v"><span class="t">40</span> × <span class="m">4</span></td></tr>
+            <tr><td>Flush</td><td>5 cards of one faction</td><td><span class="mini"><i class="c-hell">2</i><i class="c-hell">6</i><i class="c-hell">8</i><i class="c-hell">11</i><i class="c-hell">13</i></span></td><td class="v"><span class="t">35</span> × <span class="m">4</span></td></tr>
+            <tr><td>Straight</td><td>5 consecutive numbers</td><td><span class="mini"><i class="c-sky">4</i><i class="c-earth">5</i><i class="c-sea">6</i><i class="c-hell">7</i><i class="c-sky">8</i></span></td><td class="v"><span class="t">30</span> × <span class="m">4</span></td></tr>
+            <tr><td>Three of a Kind</td><td>3 of the same number</td><td><span class="mini"><i class="c-sky">7</i><i class="c-sea">7</i><i class="c-earth">7</i></span></td><td class="v"><span class="t">30</span> × <span class="m">3</span></td></tr>
+            <tr><td>Two Pair</td><td>2 of a number + 2 of another</td><td><span class="mini"><i class="c-sea">10</i><i class="c-hell">10</i><i class="c-sky">3</i><i class="c-earth">3</i></span></td><td class="v"><span class="t">20</span> × <span class="m">2</span></td></tr>
+            <tr><td>Pair</td><td>2 of the same number</td><td><span class="mini"><i class="c-earth">12</i><i class="c-sky">12</i></span></td><td class="v"><span class="t">10</span> × <span class="m">2</span></td></tr>
+            <tr><td>High Card</td><td>No hand — your highest single card</td><td><span class="mini"><i class="c-hell">13</i></span></td><td class="v"><span class="t">5</span> × <span class="m">1</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="muted" style="font-size:14px"><b>Upgrading (★)</b> a hand in the shop raises its Troops and Mult for the rest of the run. In game, the <b>?</b> button at the top right shows this table any time.</p>
+    </div>
+  </section>
+
+  <section class="chapter" id="creatures">
+    <figure>
+      <img class="phone" src="img/reveal.jpg" alt="Deploy animation — bonus troops +8 and +15 rise over the creatures whose conditions were met while the damage box is being counted" width="540" height="1037" loading="lazy">
+      <figcaption>When you deploy, each creature whose condition was met shows what it added.</figcaption>
+    </figure>
+    <div class="text">
+      <div class="eyebrow">4 · Creatures</div>
+      <h2>Your creature party grows your hands</h2>
+      <p>The party starts with 3 slots and grows to 5. Your first run starts with no creatures — you buy your first one at the first shop. Tap a creature slot to open its details.</p>
+      <div class="pair">
+        <div class="box"><h3>Trait — always on</h3><p>Things like "Troops +12 per Wind card": when the condition is met, it adds Troops or Mult on its own when you deploy.</p></div>
+        <div class="box"><h3>Skill — use when charged</h3><p>Every deploy or regroup fills the charge bar by one. When it's full, a <b>[Skill!]</b> button lights up under the creature; tap it to see what the skill does, then confirm to use it. Skills swap cards, thaw frozen cards, power up the next deploy and more.</p></div>
+      </div>
+      <h3>Roles — creatures that do more than score</h3>
+      <p>Most creatures boost Troops or Mult, but role creatures change the battle itself. Theme packs in the shop gather one role together (there's a Strategist in every faction).</p>
+      <div class="sheet">
+        <div class="tbl">
+          <table>
+            <thead><tr><th>Role</th><th>What it does</th><th>Examples</th></tr></thead>
+            <tbody>
+              <tr><td><b>Strategist</b></td><td>Hand +1</td><td>Raven Tactician · Octopus Strategist</td></tr>
+              <tr><td><b>Scout</b></td><td>Regroup +1</td><td>Swift Scout · Hare Outrider</td></tr>
+              <tr><td><b>Drummer</b></td><td>Deploy ♥ +1</td><td>Drummer Gorilla · War Drake</td></tr>
+              <tr><td><b>Wealth</b></td><td>Gold · interest</td><td>Magpie Merchant · Golden Toad</td></tr>
+              <tr><td><b>Formation Smith</b></td><td>Stronger with every ★ on your hands</td><td>Scholar Crane · Forge Drake</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <h3>2 or 3 of one color = faction bonus</h3>
+      <div class="factions">
+        <div class="fac" style="--c: var(--earth)"><b>Earth</b><span>2: Troops +40<br>3: Troops +100</span></div>
+        <div class="fac" style="--c: var(--hell)"><b>Fire</b><span>2: Mult +1<br>3: Mult +2</span></div>
+        <div class="fac" style="--c: var(--sky)"><b>Wind</b><span>2: Mult ×1.1<br>3: Mult ×1.25</span></div>
+        <div class="fac" style="--c: var(--sea)"><b>Water</b><span>2: Regroup +1<br>3: Troops +50 per regroup</span></div>
+      </div>
+      <p><b>Evolution</b> — creatures have stages Ⅰ · Ⅱ · Ⅲ. A creature evolves to Ⅱ after its trait fires enough times; Ⅲ only comes from an <b>Evolution Stone</b> or the material you get for beating a Realm Lord of the same faction. Evolving raises its numbers and shortens its skill charge.</p>
+    </div>
+  </section>
+
+  <section class="chapter flip" id="enemies">
+    <figure>
+      <img class="phone" src="img/boss.jpg" alt="Previewing the gate 2 Gatekeeper Leviathan on the march map — 1,452 troops, Tidal Wave, Bind, Regenerate, First Strike, Rage and Cap skills" width="540" height="1037" loading="lazy">
+      <figcaption>A Gatekeeper battle. The bar under the map shows its troops and skills in advance.</figcaption>
+    </figure>
+    <div class="text">
+      <div class="eyebrow">5 · Enemies and Gatekeepers</div>
+      <h2>Gatekeepers fight dirty</h2>
+      <p>Enemies show their next action in advance. Patrols and Elites just have lots of troops, but Gatekeepers and the Obsidian King mess with your hand and party. Check them on the march map and bring creatures that counter them.</p>
+      <div class="sheet">
+        <div class="tbl">
+          <table>
+            <thead><tr><th>Effect</th><th>What happens</th><th>How to deal with it</th></tr></thead>
+            <tbody>
+              <tr><td><b>Freeze</b></td><td>Some cards can't be played for a few deploys</td><td>They thaw over time · thawing skills</td></tr>
+              <tr><td><b>Bind</b></td><td>Your most valuable creature takes a break</td><td>Play a hand with a card of that creature's color</td></tr>
+              <tr><td><b>Poison</b></td><td>Mult drops a little every deploy (min 1)</td><td>Finish fast · cleansing skills</td></tr>
+              <tr><td><b>Poison card</b></td><td>Unplayable cards get shuffled into your hand</td><td>Regroup them away · they vanish after the battle</td></tr>
+              <tr><td><b>Regenerate</b></td><td>Recovers troops after a few deploys</td><td>Burst it down with big hands first</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="chapter" id="shop">
+    <figure>
+      <img class="phone" src="img/shop.jpg" alt="Shop — 4 creature cards on top, then a Straight Flush upgrade, a Combat Pack and a Wind Pack, and the Leave button at the bottom" width="540" height="1037" loading="lazy">
+      <figcaption>The shop. Tap an item to open its details, then Buy. Packs show what can come out before you buy.</figcaption>
+    </figure>
+    <div class="text">
+      <div class="eyebrow">6 · Settlement and shop</div>
+      <h2>Grow your legion between battles</h2>
+      <p>You visit the shop after every win. Gold carries over to the next shop, and saving it earns interest.</p>
+      <div class="pair">
+        <div class="box"><h3>Creatures</h3><p>Four are offered each time; the first one matches a faction in your party. When your slots are full, the <b>Release screen</b> lets you pick one to let go — it shows the faction bonus you'd lose and the gold you get back (half its price) first.</p></div>
+        <div class="box"><h3>Hand upgrades ★</h3><p>Raise that hand's Troops and Mult for the rest of the run. Upgrade the hands you play most.</p></div>
+        <div class="box"><h3>Theme packs</h3><p>Creature packs built around one theme — Strategist, Wealth, Combat or a faction — plus upgrade packs. Open one to get three; tap one to read its ability, then <b>Pick this</b>. Creatures not yet in your Codex can appear.</p></div>
+        <div class="box"><h3>Evolution Stones · boons</h3><p>A stone evolves one creature by a stage. The boon is a creature slot +1. Hand, Regroup and Deploy +1 now come from role creatures.</p></div>
+      </div>
+      <p class="muted">Rerolls start at 5 gold (+1 each time). Interest is +1 per 5 gold held, up to +5.</p>
+    </div>
+  </section>
+
+  <section class="text" id="tips">
+    <div class="eyebrow">7 · New players</div>
+    <h2>Tips for your first few runs</h2>
+    <div class="tips">
+      <div class="tip"><b>Start with Suggest</b><p>Not sure which hand you have? Tap a Suggest button — it picks the strongest combo for you.</p></div>
+      <div class="tip"><b>Collect one color</b><p>Two creatures of the same color turn on a faction bonus. Pick a color and gather its cards and creatures.</p></div>
+      <div class="tip"><b>Grow one hand</b><p>Two Pair or Flush — pick a hand that comes up often and keep upgrading it in the shop. Damage jumps.</p></div>
+      <div class="tip"><b>Scout the Gatekeeper</b><p>Tap the Gatekeeper's circle on the march map to check its skills. Freeze? Bring a thawing creature. Regenerate? Prepare a big burst.</p></div>
+      <div class="tip"><b>Leftover ♥ = gold</b><p>Win fast and every ♥ left pays 1 gold. Keep gold in multiples of 5 for interest.</p></div>
+      <div class="tip"><b>Don't hoard regroups</b><p>Regrouping costs no ♥. One card away from a big hand? Regroup for it.</p></div>
+    </div>
+  </section>
+
+  <section class="text">
+    <div class="eyebrow">Also</div>
+    <div class="pair">
+      <div class="box"><h3>Unlock decks</h3><p>Reaching gate 2 or gate 4 for the first time, or beating the Obsidian King, unlocks a new starting deck. The Short Deck, High Number Deck and Ember Deck each play differently.</p></div>
+      <div class="box"><h3>Daily Challenge</h3><p>Everyone gets the same conditions (same seed) that day. Your first attempt is saved in <b>My Records</b>.</p></div>
+      <div class="box"><h3>Endless march</h3><p>After beating the Obsidian King you can keep going from gate 7. How far can you get?</p></div>
+      <div class="box"><h3>Codex</h3><p>Fills up with every creature you meet. Creatures you first meet in theme packs also appear in the shop from your next run.</p></div>
+    </div>
+  </section>
+
+  <footer>
+    <span>Legion Hand · Free · Contains ads · Android</span>
+    <span>Privacy policy: <a href="https://jeddli.github.io/lee4family-policies/legion-hand/">jeddli.github.io/lee4family-policies/legion-hand</a></span>
+    <span>Contact: leefourfamily@gmail.com</span>
+  </footer>
+</div>
+</body>
+</html>
