@@ -11,7 +11,7 @@ title: 개인정보처리방침 - Lumen Path
 - 서비스명: Lumen Path
 - 개발자(개인정보처리자): 이종화/Lee4Family
 - 문의 이메일: leefourfamily.support@gmail.com
-- 시행일자: 2026년 10월 29일
+- 시행일자: 2026년 11월 6일
 
 ## 1. 수집하는 정보 및 수집 방법
 
@@ -23,6 +23,7 @@ title: 개인정보처리방침 - Lumen Path
 | 광고 식별자 | 광고 ID(Google Advertising ID, AD_ID) | 광고 SDK를 통해 자동 수집 |
 | 대략적인 위치 | IP 주소 기반의 대략적인 위치(도시·국가 수준) | 광고 SDK를 통해 자동 수집 |
 | 게임 이용 정보 | 클리어한 레벨, 별, 힌트 수, 설정 등 플레이 데이터 (이용자 기기 내에만 저장) | 앱 실행 중 자동 생성 |
+| 순위표 정보 | Google Play 게임즈 플레이어 ID, 닉네임, 제출한 점수(모은 별 합계) | 이용자가 Play 게임즈로 로그인해 순위표에 점수가 올라갈 때 |
 
 본 게임은 이용자의 연락처, 사진, 정밀 위치, 마이크, 저장소 등 민감한 권한을 요청하지 않습니다.
 
@@ -31,6 +32,7 @@ title: 개인정보처리방침 - Lumen Path
 수집된 정보는 다음 목적으로만 이용되며, 목적 외의 용도로 이용하지 않습니다.
 
 - 게임 기능 제공 및 진행 상황 저장
+- Google Play 게임즈 로그인 및 별 합계 순위표 제공
 - 광고 게재(배너·전면·보상형 광고) 및 광고 성과 측정
 
 ## 3. 개인정보의 제3자 제공 및 처리 위탁
@@ -40,6 +42,7 @@ title: 개인정보처리방침 - Lumen Path
 | 수탁업체 | 처리 목적 | 개인정보처리방침 |
 | --- | --- | --- |
 | Google LLC (Google AdMob) | 광고 게재 및 성과 측정 | https://policies.google.com/technologies/ads |
+| Google LLC (Google Play 게임즈 서비스) | 로그인, 별 합계 순위표(플레이어 ID · 닉네임 · 제출 점수) | https://policies.google.com/privacy |
 
 유럽경제지역(EEA)·영국·스위스 이용자에게는 광고 표시 전에 Google 의 동의 관리 화면을 통해 개인 맞춤 광고에 대한 동의 여부를 묻고, 게임 안 설정의 "개인정보 설정"에서 언제든 선택을 바꿀 수 있습니다.
 
@@ -47,6 +50,7 @@ title: 개인정보처리방침 - Lumen Path
 
 - 광고 SDK를 통해 자동 수집되는 정보는 Google LLC의 개인정보처리방침 및 보관 정책에 따라 처리·파기됩니다.
 - 게임 진행 데이터는 이용자 기기에만 저장되며, 앱을 삭제하면 함께 삭제됩니다.
+- 순위표 기록은 Google Play 게임즈에 저장되며, 이용자가 Google Play 게임즈 계정에서 직접 삭제를 요청할 수 있습니다.
 - 보유 기간이 지나거나 처리 목적이 달성된 정보는 지체 없이 복구가 불가능한 방법으로 파기합니다.
 
 ## 5. 이용자의 권리와 행사 방법
@@ -56,6 +60,7 @@ title: 개인정보처리방침 - Lumen Path
 - 광고 식별자 재설정 또는 삭제: 기기 설정 → Google → 광고 → 광고 ID 재설정 / 삭제
 - 맞춤 광고 거부: 기기 설정 → Google → 광고 → 광고 개인 최적화 사용 중지
 - 광고 동의 변경(EEA·영국·스위스): 게임 설정 → 개인정보 설정
+- 순위표 기록·Play 게임즈 데이터 삭제: Google Play 게임즈 앱 → 설정 → 계정 및 데이터 관리
 - 전체 삭제: 앱을 기기에서 삭제하면 기기 내 저장 데이터가 모두 삭제됩니다
 
 기타 요청은 아래 문의처로 연락 주시면 지체 없이 처리하겠습니다.
@@ -88,8 +93,9 @@ title: 개인정보처리방침 - Lumen Path
 
 본 방침의 내용이 추가·삭제 또는 수정될 경우 변경 사항의 시행 7일 전부터 본 페이지를 통해 고지합니다. 다만 이용자 권리에 중대한 변경이 있는 경우 최소 30일 전에 고지합니다.
 
-- 공고일자: 2026년 10월 29일
-- 시행일자: 2026년 10월 29일
+- 공고일자: 2026년 10월 30일 (Google Play 게임즈 순위표 추가)
+- 시행일자: 2026년 11월 6일
+- 이전 버전: 2026년 10월 29일 공고·시행
 
 ---
 
@@ -100,7 +106,7 @@ Lumen Path ("the Game") respects your privacy. This policy explains what informa
 - Service: Lumen Path
 - Developer (data controller): Lee Jonghwa / Lee4Family
 - Contact: leefourfamily.support@gmail.com
-- Effective date: October 29, 2026
+- Effective date: November 6, 2026
 
 ## 1. Information collected
 
@@ -112,21 +118,24 @@ The Game has no accounts and does not directly collect information that identifi
 | Advertising ID | Google Advertising ID (AD_ID) | Automatically by the ad SDK |
 | Approximate location | Approximate location from the IP address (city or country level) | Automatically by the ad SDK |
 | Game data | Cleared levels, stars, hints, settings (stored only on your device) | Created while you play |
+| Leaderboard data | Google Play Games player ID, nickname, submitted score (total stars) | When you sign in to Play Games and your score is posted to the leaderboard |
 
 The Game does not request sensitive permissions such as contacts, photos, precise location, microphone or storage.
 
 ## 2. How we use it
 
 - To run the Game and save your progress
+- To provide Google Play Games sign-in and the total-stars leaderboard
 - To show ads (banner, interstitial and rewarded) and measure ad performance
 
 ## 3. Third parties
 
-We do not sell your information. Information is processed by the following provider under its own privacy policy:
+We do not sell your information. Information is processed by the following providers under their own privacy policies:
 
 | Provider | Purpose | Privacy policy |
 | --- | --- | --- |
 | Google LLC (Google AdMob) | Showing ads and measuring ad performance | https://policies.google.com/technologies/ads |
+| Google LLC (Google Play Games Services) | Sign-in and the total-stars leaderboard (player ID, nickname, submitted score) | https://policies.google.com/privacy |
 
 Users in the EEA, the UK and Switzerland are asked for consent to personalized ads through Google's consent screen before ads are shown, and can change their choice at any time in the Game's Settings → Privacy Settings.
 
@@ -134,12 +143,14 @@ Users in the EEA, the UK and Switzerland are asked for consent to personalized a
 
 - Information collected by the ad SDK is processed and deleted under Google LLC's privacy and retention policies.
 - Game data is stored only on your device and is deleted when you uninstall the app.
+- Leaderboard records are stored by Google Play Games; you can delete them from your Play Games account.
 
 ## 5. Your choices
 
 - Reset or delete your advertising ID: device Settings → Google → Ads
 - Opt out of personalized ads: device Settings → Google → Ads → turn off ads personalization
 - Change ad consent (EEA, UK, Switzerland): in the Game, Settings → Privacy Settings
+- Delete leaderboard records and Play Games data: Google Play Games app → Settings → Manage account and data
 - Delete everything: uninstall the app
 
 For any other request, contact us at the email above.
@@ -152,5 +163,6 @@ The Game is not directed at children under 14 and does not knowingly collect the
 
 We announce changes on this page at least 7 days before they take effect, or 30 days before for significant changes to your rights.
 
-- Published: October 29, 2026
-- Effective: October 29, 2026
+- Published: October 30, 2026 (added the Google Play Games leaderboard)
+- Effective: November 6, 2026
+- Previous version: published and effective October 29, 2026
