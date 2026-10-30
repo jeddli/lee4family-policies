@@ -11,7 +11,7 @@ title: 개인정보처리방침 - Mukbang Cat
 - 서비스명: Mukbang Cat
 - 개발자(개인정보처리자): 이종화/Lee4Family
 - 문의 이메일: leefourfamily.support@gmail.com
-- 시행일자: 2026년 10월 30일
+- 시행일자: 2026년 11월 6일
 
 ## 1. 수집하는 정보 및 수집 방법
 
@@ -24,6 +24,7 @@ title: 개인정보처리방침 - Mukbang Cat
 | 대략적인 위치 | IP 주소 기반의 대략적인 위치(도시·국가 수준) | 광고 SDK를 통해 자동 수집 |
 | 게임 이용 정보 | 클리어한 스테이지, 별, 구독자 수(게임 안 점수), 소리·진동 설정 등 플레이 데이터 (이용자 기기 내에만 저장) | 앱 실행 중 자동 생성 |
 | 문의 정보 (선택) | 이메일 주소, 문의 내용, 함께 적히는 앱 버전·기기 모델·OS 버전·언어·현재 스테이지 | 이용자가 설정의 "의견 보내기"로 직접 메일을 보낼 때만 |
+| 순위표 정보 | Google Play 게임즈 플레이어 ID, 닉네임, 제출한 점수(구독자 수) | 이용자가 Google Play 게임즈로 로그인한 상태에서 스테이지를 깨거나 순위 화면을 열 때 |
 
 본 게임은 이용자의 연락처, 사진, 정밀 위치, 마이크, 저장소 등 민감한 권한을 요청하지 않습니다.
 
@@ -33,6 +34,7 @@ title: 개인정보처리방침 - Mukbang Cat
 
 - 게임 기능 제공 및 진행 상황 저장
 - 광고 게재(배너·전면·보상형 광고) 및 광고 성과 측정
+- Google Play 게임즈 로그인 및 "구독자 수" 순위표 제공
 - 이용자가 보낸 문의에 답변하고 오류를 고치기 위함 (문의 정보)
 
 ## 3. 개인정보의 제3자 제공 및 처리 위탁
@@ -42,6 +44,7 @@ title: 개인정보처리방침 - Mukbang Cat
 | 수탁업체 | 처리 목적 | 개인정보처리방침 |
 | --- | --- | --- |
 | Google LLC (Google AdMob) | 광고 게재 및 성과 측정 | https://policies.google.com/technologies/ads |
+| Google LLC (Google Play 게임즈 서비스) | 로그인, 구독자 수 순위표(플레이어 ID · 닉네임 · 제출 점수) | https://policies.google.com/privacy |
 
 유럽경제지역(EEA)·영국·스위스 이용자에게는 광고 표시 전에 Google 의 동의 관리 화면을 통해 개인 맞춤 광고에 대한 동의 여부를 묻고, 게임 안 설정의 "개인정보 설정"에서 언제든 선택을 바꿀 수 있습니다.
 
@@ -49,6 +52,7 @@ title: 개인정보처리방침 - Mukbang Cat
 
 - 광고 SDK를 통해 자동 수집되는 정보는 Google LLC의 개인정보처리방침 및 보관 정책에 따라 처리·파기됩니다.
 - 게임 진행 데이터는 이용자 기기에만 저장되며, 앱을 삭제하면 함께 삭제됩니다.
+- 순위표 기록은 Google Play 게임즈에 저장되며, 이용자가 Google Play 게임즈 계정에서 직접 삭제를 요청할 수 있습니다.
 - 문의 메일은 답변과 처리를 마친 뒤 1년 이내에 삭제합니다. 그 전에 삭제를 원하시면 문의처로 알려 주세요.
 - 보유 기간이 지나거나 처리 목적이 달성된 정보는 지체 없이 복구가 불가능한 방법으로 파기합니다.
 
@@ -59,6 +63,7 @@ title: 개인정보처리방침 - Mukbang Cat
 - 광고 식별자 재설정 또는 삭제: 기기 설정 → Google → 광고 → 광고 ID 재설정 / 삭제
 - 맞춤 광고 거부: 기기 설정 → Google → 광고 → 광고 개인 최적화 사용 중지
 - 광고 동의 변경(EEA·영국·스위스): 게임 설정 → 개인정보 설정
+- 순위표 기록 · Play 게임즈 데이터 삭제, 프로필 공개 범위: Google Play 게임즈 앱 → 설정 → 계정 및 데이터 관리
 - 전체 삭제: 앱을 기기에서 삭제하면 기기 내 저장 데이터가 모두 삭제됩니다
 
 기타 요청은 아래 문의처로 연락 주시면 지체 없이 처리하겠습니다.
@@ -91,8 +96,9 @@ title: 개인정보처리방침 - Mukbang Cat
 
 본 방침의 내용이 추가·삭제 또는 수정될 경우 변경 사항의 시행 7일 전부터 본 페이지를 통해 고지합니다. 다만 이용자 권리에 중대한 변경이 있는 경우 최소 30일 전에 고지합니다.
 
-- 공고일자: 2026년 10월 30일
-- 시행일자: 2026년 10월 30일
+- 공고일자: 2026년 10월 30일 (Google Play 게임즈 순위표 추가)
+- 시행일자: 2026년 11월 6일
+- 이전 버전: 2026년 10월 30일 공고·시행
 
 ---
 
@@ -103,7 +109,7 @@ Mukbang Cat ("the Game") respects your privacy. This policy explains what inform
 - Service: Mukbang Cat
 - Developer (data controller): Lee Jonghwa / Lee4Family
 - Contact: leefourfamily.support@gmail.com
-- Effective date: October 30, 2026
+- Effective date: November 6, 2026
 
 ## 1. Information collected
 
@@ -116,6 +122,7 @@ The Game has no accounts and does not directly collect information that identifi
 | Approximate location | Approximate location from the IP address (city or country level) | Automatically by the ad SDK |
 | Game data | Cleared stages, stars, subscriber count (an in-game score), sound and vibration settings (stored only on your device) | Created while you play |
 | Support messages (optional) | Your email address, your message, and the app version, device model, OS version, language and current stage added to it | Only when you send an email yourself from Settings → Send Feedback |
+| Leaderboard data | Google Play Games player ID, nickname and submitted score (subscriber count) | When you are signed in to Google Play Games and clear a stage or open the ranking |
 
 The Game does not request sensitive permissions such as contacts, photos, precise location, microphone or storage.
 
@@ -123,15 +130,17 @@ The Game does not request sensitive permissions such as contacts, photos, precis
 
 - To run the Game and save your progress
 - To show ads (banner, interstitial and rewarded) and measure ad performance
+- To provide Google Play Games sign-in and the "subscribers" leaderboard
 - To answer your support messages and fix problems (support messages)
 
 ## 3. Third parties
 
-We do not sell your information. Information is processed by the following provider under its own privacy policy:
+We do not sell your information. Information is processed by the following providers under their own privacy policies:
 
 | Provider | Purpose | Privacy policy |
 | --- | --- | --- |
 | Google LLC (Google AdMob) | Showing ads and measuring ad performance | https://policies.google.com/technologies/ads |
+| Google LLC (Google Play Games Services) | Sign-in and the subscribers leaderboard (player ID, nickname, submitted score) | https://policies.google.com/privacy |
 
 Users in the EEA, the UK and Switzerland are asked for consent to personalized ads through Google's consent screen before ads are shown, and can change their choice at any time in the Game's Settings → Privacy Settings.
 
@@ -139,6 +148,7 @@ Users in the EEA, the UK and Switzerland are asked for consent to personalized a
 
 - Information collected by the ad SDK is processed and deleted under Google LLC's privacy and retention policies.
 - Game data is stored only on your device and is deleted when you uninstall the app.
+- Leaderboard records are stored by Google Play Games; you can ask for deletion from your Google Play Games account.
 - Support emails are deleted within one year after your request is handled. Contact us if you want them deleted sooner.
 
 ## 5. Your choices
@@ -146,6 +156,7 @@ Users in the EEA, the UK and Switzerland are asked for consent to personalized a
 - Reset or delete your advertising ID: device Settings → Google → Ads
 - Opt out of personalized ads: device Settings → Google → Ads → turn off ads personalization
 - Change ad consent (EEA, UK, Switzerland): in the Game, Settings → Privacy Settings
+- Delete leaderboard records or change profile visibility: Google Play Games app → Settings → Account and data
 - Delete everything: uninstall the app
 
 For any other request, contact us at the email above.
@@ -158,5 +169,6 @@ The Game is not directed at children under 14 and does not knowingly collect the
 
 We announce changes on this page at least 7 days before they take effect, or 30 days before for significant changes to your rights.
 
-- Published: October 30, 2026
-- Effective: October 30, 2026
+- Published: October 30, 2026 (added the Google Play Games leaderboard)
+- Effective: November 6, 2026
+- Previous version: published and effective October 30, 2026
